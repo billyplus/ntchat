@@ -24,3 +24,5 @@ main.spec
 build/
 config.ini
 ntchat/wc/*.pyd
+wheelhouse/
+setup_conf.py
