@@ -10,7 +10,7 @@ wechat.open(smart=False)
 # 等待登录
 wechat.wait_login()
 
-# 获取联系人列表并输出
+# 获取群列表并输出
 rooms = wechat.get_rooms()
 
 print("群列表: ")
