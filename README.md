@@ -16,7 +16,7 @@
 ## 支持的微信版本下载
 - [WeChatSetup3.6.0.18.exe](https://webcdn.m.qq.com/spcmgr/download/WeChat3.6.0.18.exe)
 
-## 获取
+## 安装
 
 ```bash
 pip install ntchat
@@ -123,7 +123,7 @@ except KeyboardInterrupt:
 
 ## 使用pyxcgui界面库实现的简单例子
 
-![uidesigner](examples/resources/send_text_ui.jpg)
+![vcnRfg.jpg](https://s1.ax1x.com/2022/08/23/vcnRfg.jpg)
 
 代码如下：
 
