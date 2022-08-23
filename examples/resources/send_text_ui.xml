@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--炫彩界面库-窗口布局文件-->
+<head>
+	<bindJsFile value="" />
+</head>
+<windowUI center="true" content="ntchat界面演示" enableLayout="true" layout.horizon="true" padding="5,5,5,5" rect="20,20,761,571" windowStyle="2031" showT="true">
+	<editUI drawBorder="true" layout.height="fill" layout.width=":1" multiLine="true" name="edit_log" rect="246,187,100,20" scrollBarShowH="false" scrollBarShowV="true" showT="true" expandT="true" />
+	<elementUI layout.float="true" layout.height="fill" rect="219,85,200,100" transparent="true" showT="true" expandT="true">
+		<editUI content="filehelper" name="edit_wxid" rect="65,106,116,27" showT="true" expandT="true" />
+		<editUI content="消息来自ntchat" name="edit_content" rect="65,151,116,27" showT="true" expandT="true" />
+		<shapeText content="wxid" layout.height="20" layout.width="auto" rect="18,110,61,20" showT="true" expandT="true" />
+		<shapeText content="消息" layout.height="20" layout.width="auto" rect="20,156,61,20" showT="true" expandT="true" />
+		<buttonUI content="发送消息" name="btn_send" rect="93,192,60,25" showT="true" expandT="true" />
+		<buttonUI content="打开微信" name="btn_open" rect="47,31,120,25" showT="true" expandT="true" />
+	</elementUI>
+</windowUI>

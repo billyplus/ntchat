@@ -69,14 +69,17 @@ class WeChat:
         return wrapper
 
     def on_recv(self, message):
+        log.debug("on recv message: %s", message)
         msg_type = message["type"]
         extend = message.get("extend", None)
         if msg_type == wx_type.MT_USER_LOGIN_MSG:
-            self.login_status = False
+            self.login_status = True
             self.__wait_login_event.set()
             self.__login_info = message.get("data", {})
+            log.info("login success, wxid: %s, nickname: %s", self.__login_info["wxid"], self.__login_info["nickname"])
         elif msg_type == wx_type.MT_USER_LOGOUT_MSG:
             self.login_status = False
+            log.info("logout, pid: %d", self.pid)
 
         if extend is not None and extend in self.__req_data_cache:
             req_data = self.__req_data_cache[extend]
@@ -84,6 +87,7 @@ class WeChat:
             del self.__req_data_cache[extend]
         else:
             self.__msg_event_emitter.emit(str(msg_type), self, message)
+            self.__msg_event_emitter.emit(str(wx_type.MT_ALL), self, message)
 
     def wait_login(self, timeout=None):
         log.info("wait login...")
@@ -114,7 +118,7 @@ class WeChat:
         if extend is not None:
             message["extend"] = extend
         message_json = json.dumps(message)
-        log.debug("communicate wechat pid:%d,  data: %s", self.pid, message)
+        log.debug("communicate wechat pid: %d,  data: %s", self.pid, message)
         return wcprobe.send(self.client_id, message_json)
 
     def __send_sync(self, msg_type, data=None, timeout=10):
