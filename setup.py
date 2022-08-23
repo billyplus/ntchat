@@ -194,7 +194,7 @@ extension.extra_compile_cpp_args = extra_compile_cpp_args[target_os]
 
 setup(
     name='ntchat',
-    version='0.1.0',
+    version='0.1.1',
     description='About Conversational RPA SDK for Chatbot Makers',
     long_description="",
     long_description_content_type='text/markdown',
@@ -203,7 +203,7 @@ setup(
     author_email='784615627@qq.com',
     license='MIT',
     classifiers=[
-        'Development Status :: 1 - Beta',
+        'Development Status :: 4 - Beta',
         'License :: OSI Approved :: MIT License',
         'Programming Language :: Python :: 3.6',
         'Programming Language :: Python :: 3.7',

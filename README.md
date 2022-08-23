@@ -1,6 +1,6 @@
 <h1 align="center">NtChat</h1>
 <p align="center">
-    <a href="https://github.com/smallevilbeast/ntchat/releases"><img src="https://img.shields.io/badge/release-0.1.0-blue.svg?" alt="release"></a>
+    <a href="https://github.com/smallevilbeast/ntchat/releases"><img src="https://img.shields.io/badge/release-0.1.1-blue.svg?" alt="release"></a>
     <a href="https://opensource.org/licenses/MIT"><img src="https://img.shields.io/badge/License-MIT-brightgreen.svg?" alt="License"></a>
 </p>
 
@@ -23,7 +23,7 @@ pip install ntchat
 ```
 国内源安装
 ```bash
-pip install -i https://mirrors.huaweicloud.com/repository/pypi/simple ntchat
+pip install -i https://pypi.tuna.tsinghua.edu.cn/simple ntchat
 ```
 
 ## 简单入门实例
