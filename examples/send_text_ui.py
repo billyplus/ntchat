@@ -28,7 +28,7 @@ class NtChatWindow(XWindow):
         self.wechat_instance.on(ntchat.MT_ALL, self.on_recv_message)
 
     def on_btn_send_clicked(self, sender, _):
-        if not self.wechat_instance.login_status:
+        if not self.wechat_instance or not self.wechat_instance.login_status:
             svg = xcgui.XSvg.loadFile("resources\\warn.svg")
             svg.setSize(16, 16)
             self.notifyMsgWindowPopup(xcgui.position_flag_top, "警告", "请先打开并登录微信",
