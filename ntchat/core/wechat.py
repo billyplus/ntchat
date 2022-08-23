@@ -247,10 +247,81 @@ class WeChat:
         }
         return self.__send(wx_type.MT_SEND_VIDEO_MSG, data)
 
-    # 发送gif
     def send_gif(self, to_wxid, file):
+        """
+        发送gif:
+        """
         data = {
             'to_wxid': to_wxid,
             'file': file
         }
         return self.__send(wx_type.MT_SEND_GIF_MSG, data)
+
+    def accept_friend_request(self, encryptusername: str, ticket: str, scene: int):
+        """
+        同意加好友请求
+        """
+        data = {
+            "encryptusername": encryptusername,
+            "ticket": ticket,
+            "scene": scene
+        }
+        return self.__send_sync(wx_type.MT_ACCEPT_FRIEND_MSG, data)
+
+    def create_room(self, member_list: List[str]):
+        """
+        创建群
+        """
+        return self.__send(wx_type.MT_CREATE_ROOM_MSG, member_list)
+
+    def add_room_member(self, room_wxid: str, member_list: List[str]):
+        """
+        添加好友入群
+        """
+        data = {
+            "room_wxid": room_wxid,
+            "member_list": member_list
+        }
+        return self.__send_sync(wx_type.MT_INVITE_TO_ROOM_MSG, data)
+
+    def invite_room_member(self, room_wxid: str, member_list: List[str]):
+        """
+        邀请好友入群
+        """
+        data = {
+            "room_wxid": room_wxid,
+            "member_list": member_list
+        }
+        return self.__send_sync(wx_type.MT_INVITE_TO_ROOM_REQ_MSG, data)
+
+    def del_room_member(self, room_wxid: str, member_list: List[str]):
+        """
+        删除群成员
+        """
+        data = {
+            "room_wxid": room_wxid,
+            "member_list": member_list
+        }
+        return self.__send_sync(wx_type.MT_DEL_ROOM_MEMBER_MSG, data)
+
+    def modify_room_name(self, room_wxid: str, name: str):
+        """
+        修改群名
+        """
+        data = {
+            "room_wxid": room_wxid,
+            "name": name
+        }
+        return self.__send_sync(wx_type.MT_MOD_ROOM_NAME_MSG, data)
+
+    def modify_room_notice(self, room_wxid: str, notice: str):
+        """
+        修改群公告
+        """
+        data = {
+            "room_wxid": room_wxid,
+            "notice": notice
+        }
+        return self.__send_sync(wx_type.MT_MOD_ROOM_NOTICE_MSG, data)
+
+
