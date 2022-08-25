@@ -5,7 +5,7 @@ import ntchat
 wechat = ntchat.WeChat()
 
 # 打开pc微信, smart: 是否管理已经登录的微信
-wechat.open(smart=False)
+wechat.open(smart=True)
 
 # 等待登录
 wechat.wait_login()

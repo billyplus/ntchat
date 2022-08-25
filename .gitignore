@@ -26,3 +26,4 @@ config.ini
 ntchat/wc/*.pyd
 wheelhouse/
 setup_conf.py
+upload.bat

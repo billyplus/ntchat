@@ -5,7 +5,7 @@ import ntchat
 wechat = ntchat.WeChat()
 
 # 打开pc微信, smart: 是否管理已经登录的微信
-wechat.open(smart=False)
+wechat.open(smart=True)
 
 
 def on_recv_text_msg(wechat_instance: ntchat.WeChat, message):

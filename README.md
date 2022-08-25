@@ -38,7 +38,7 @@ import ntchat
 wechat = ntchat.WeChat()
 
 # 打开pc微信, smart: 是否管理已经登录的微信
-wechat.open(smart=False)
+wechat.open(smart=True)
 
 # 等待登录
 wechat.wait_login()
@@ -63,7 +63,7 @@ import ntchat
 wechat = ntchat.WeChat()
 
 # 打开pc微信, smart: 是否管理已经登录的微信
-wechat.open(smart=False)
+wechat.open(smart=True)
 
 # 等待登录
 wechat.wait_login()
@@ -97,7 +97,7 @@ import ntchat
 wechat = ntchat.WeChat()
 
 # 打开pc微信, smart: 是否管理已经登录的微信
-wechat.open(smart=False)
+wechat.open(smart=True)
 
 
 # 注册消息回调
@@ -155,7 +155,7 @@ class NtChatWindow(XWindow):
 
     def on_btn_open_clicked(self, sender, _):
         self.wechat_instance = ntchat.WeChat()
-        self.wechat_instance.open()
+        self.wechat_instance.open(smart=True)
         self.wechat_instance.on(ntchat.MT_ALL, self.on_recv_message)
 
     def on_btn_send_clicked(self, sender, _):
