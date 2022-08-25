@@ -1,5 +1,6 @@
 # -*- coding: utf-8 -*-
 import sys
+import time
 import ntchat
 
 wechat = ntchat.WeChat()
@@ -22,9 +23,10 @@ def on_recv_text_msg(wechat_instance: ntchat.WeChat, message):
 # 监听接收文本消息
 wechat.on(ntchat.MT_RECV_TEXT_MSG, on_recv_text_msg)
 
+# 以下是为了让程序不结束，如果有用于PyQt等有主循环消息的框架，可以去除下面代码
 try:
     while True:
-        pass
+        time.sleep(0.5)
 except KeyboardInterrupt:
     ntchat.exit_()
     sys.exit()

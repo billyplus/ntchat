@@ -1,5 +1,6 @@
 # -*- coding: utf-8 -*-
 import sys
+import time
 import ntchat
 import xml.dom.minidom
 
@@ -24,9 +25,11 @@ def on_recv_text_msg(wechat_instance: ntchat.WeChat, message):
     wechat_instance.accept_friend_request(encryptusername, ticket, int(scene))
 
 
+# 以下是为了让程序不结束，如果有用于PyQt等有主循环消息的框架，可以去除下面代码
 try:
     while True:
-        pass
+        time.sleep(0.5)
 except KeyboardInterrupt:
     ntchat.exit_()
     sys.exit()
+
