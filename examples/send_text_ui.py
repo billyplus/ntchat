@@ -25,6 +25,8 @@ class NtChatWindow(XWindow):
     def on_btn_open_clicked(self, sender, _):
         self.wechat_instance = ntchat.WeChat()
         self.wechat_instance.open(smart=True)
+
+        # 监听所有通知消息
         self.wechat_instance.on(ntchat.MT_ALL, self.on_recv_message)
 
     def on_btn_send_clicked(self, sender, _):

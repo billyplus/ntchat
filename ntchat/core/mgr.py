@@ -4,8 +4,9 @@ from ntchat.wc import wcprobe
 from ntchat.utils.xdg import get_helper_file
 from ntchat.exception import WeChatVersionNotMatchError, WeChatBindError
 from ntchat.utils.singleton import Singleton
-from ntchat.const import wx_type
+from ntchat.const import notify_type
 from ntchat.utils.logger import get_logger
+from ntchat import conf
 
 log = get_logger("WeChatManager")
 
@@ -14,8 +15,8 @@ class WeChatMgr(metaclass=Singleton):
     __instance_list = []
     __instance_map = {}
 
-    def __init__(self, wechat_exe_path=None, wechat_version=None):
-        self.set_wechat_exe_path(wechat_exe_path, wechat_version)
+    def __init__(self):
+        self.set_wechat_exe_path(conf.DEFAULT_WECHAT_EXE_PATH, conf.DEFAULT_WECHAT_VERSION)
 
         # init callbacks
         wcprobe.init_callback(self.__on_accept, self.__on_recv, self.__on_close)
@@ -62,7 +63,7 @@ class WeChatMgr(metaclass=Singleton):
 
     def __on_recv(self, client_id, data):
         message = json.loads(data)
-        if message["type"] == wx_type.MT_READY_MSG:
+        if message["type"] == notify_type.MT_READY_MSG:
             self.__bind_wechat(client_id, message["data"]["pid"])
         else:
             self.__instance_map[client_id].on_recv(message)
