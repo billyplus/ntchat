@@ -49,8 +49,7 @@ class WeChatMgr(metaclass=Singleton):
         if client_id not in self.__instance_map:
             for instance in self.__instance_list:
                 if instance.pid == pid:
-                    instance.client_id = client_id
-                    instance.status = True
+                    instance.bind_client_id(client_id)
                     self.__instance_map[client_id] = instance
                     bind_instance = instance
                     break
@@ -71,5 +70,4 @@ class WeChatMgr(metaclass=Singleton):
     def __on_close(self, client_id):
         log.debug("close client_id: %d", client_id)
         if client_id in self.__instance_map:
-            self.__instance_map[client_id].login_status = False
-            self.__instance_map[client_id].status = False
+            self.__instance_map[client_id].on_close()

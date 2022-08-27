@@ -68,6 +68,15 @@ class WeChat:
             return f
         return wrapper
 
+    def on_close(self):
+        self.login_status = False
+        self.status = False
+        self.__msg_event_emitter.emit(str(notify_type.MT_RECV_WECHAT_QUIT_MSG), self)
+
+    def bind_client_id(self, client_id):
+        self.status = True
+        self.client_id = client_id
+
     def on_recv(self, message):
         log.debug("on recv message: %s", message)
         msg_type = message["type"]

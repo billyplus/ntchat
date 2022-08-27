@@ -1,6 +1,9 @@
 # 用于接收所有的通知消息
 MT_ALL = 11000
 
+# 微信进程退出通知
+MT_RECV_WECHAT_QUIT_MSG = 11001
+
 # 第个通知消息，此时已经托管上微信
 MT_READY_MSG = 11024
 
