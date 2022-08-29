@@ -335,7 +335,7 @@ class WeChat:
             "room_wxid": room_wxid,
             "notice": notice
         }
-        return self.__send_sync(send_type.MT_MOD_ROOM_NAME_MSG, data)
+        return self.__send_sync(send_type.MT_MOD_ROOM_NOTICE_MSG, data)
 
     def add_room_friend(self, room_wxid: str, wxid: str, verify: str):
         """

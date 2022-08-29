@@ -120,6 +120,10 @@ except KeyboardInterrupt:
     sys.exit()
 ```
 
+## 使用fastapi框架实现的web api接口
+
+[查看fastapi_example例子](./fastapi_example/README.md)
+
 
 ## 使用pyxcgui界面库实现的简单例子
 
