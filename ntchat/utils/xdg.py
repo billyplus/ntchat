@@ -23,7 +23,7 @@ def get_wc_dir():
 
 
 def get_helper_file(version):
-    return os.path.join(get_wc_dir(), f"helper_{version}.pyd")
+    return os.path.join(get_wc_dir(), f"helper_{version}.dat")
 
 
 def get_support_download_url():

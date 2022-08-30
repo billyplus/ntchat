@@ -194,7 +194,7 @@ extension.extra_compile_cpp_args = extra_compile_cpp_args[target_os]
 
 setup(
     name='ntchat',
-    version='0.1.4',
+    version='0.1.5',
     description='About Conversational RPA SDK for Chatbot Makers',
     long_description="",
     long_description_content_type='text/markdown',
@@ -211,7 +211,7 @@ setup(
         'Programming Language :: Python :: 3.9',
         'Programming Language :: Python :: 3.10'
     ],
-    package_data={"": ["py.typed", "*.pyi", "helper*.pyd"]},
+    package_data={"": ["py.typed", "*.pyi", "helper*.dat"]},
     include_package_data=False,
     packages=find_packages(include=['ntchat', 'ntchat.*']),
     keywords='wechat ntchat pywechat rebot',
