@@ -101,8 +101,11 @@ class AddRoomFriendReqModel(ClientReqModel):
     verify: str
 
 
-class ModifyRoomNameReqModel(ClientReqModel):
+class RoomReqModel(ClientReqModel):
     room_wxid: str
+
+
+class ModifyRoomNameReqModel(RoomReqModel):
     name: str
 
 

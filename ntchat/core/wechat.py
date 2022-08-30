@@ -349,3 +349,11 @@ class WeChat:
         }
         return self.__send_sync(send_type.MT_ADD_FRIEND_MSG, data)
 
+    def quit_room(self, room_wxid: str):
+        """
+        退出群
+        """
+        data = {
+            "room_wxid": room_wxid
+        }
+        return self.__send(send_type.MT_QUIT_DEL_ROOM_MSG, data)

@@ -161,6 +161,14 @@ async def add_room_friend(model: models.ModifyRoomNameReqModel):
     return response_json(1, data)
 
 
+@app.post("/room/quit_room", summary="退出群", tags=["Room"],
+          response_model=models.ResponseModel)
+@catch_exception()
+async def quit_room(model: models.RoomReqModel):
+    data = client_mgr.get_client(model.guid).quit_room(model.room_wxid)
+    return response_json(1, data)
+
+
 @app.post("/msg/send_text", summary="发送文本消息", tags=["Msg"], response_model=models.ResponseModel)
 @catch_exception()
 async def msg_send_text(model: models.SendTextReqModel):
