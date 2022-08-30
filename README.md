@@ -16,6 +16,9 @@
 ## 支持的微信版本下载
 - [WeChatSetup3.6.0.18.exe](https://webcdn.m.qq.com/spcmgr/download/WeChat3.6.0.18.exe)
 
+## 帮助文档
+[常见问题](docs/FAQ.md)
+
 ## 安装
 
 ```bash
