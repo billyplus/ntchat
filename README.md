@@ -124,7 +124,7 @@ except KeyboardInterrupt:
 
 通过fastapi的swagger在线文档可以很方便的管理NtChat接口
 
-[查看fastapi_example例子](./fastapi_example/README.md)
+[查看fastapi_example例子](./fastapi_example)
 
 ![vfazT0.jpg](https://s1.ax1x.com/2022/08/29/vfazT0.jpg)
 
