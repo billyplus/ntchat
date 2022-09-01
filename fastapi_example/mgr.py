@@ -32,6 +32,7 @@ class ClientManager(metaclass=Singleton):
 
         # 注册回调
         wechat.on(ntchat.MT_ALL, self.__on_callback)
+        wechat.on(ntchat.MT_RECV_WECHAT_QUIT_MSG, self.__on_quit_callback)
         return guid
 
     def get_client(self, guid: str) -> Union[None, ntchat.WeChat]:
@@ -53,3 +54,6 @@ class ClientManager(metaclass=Singleton):
             "message": message
         }
         requests.post(self.callback_url, json=client_message)
+
+    def __on_quit_callback(self, wechat):
+        self.__on_callback(wechat, {})
