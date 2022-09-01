@@ -1,3 +1,11 @@
+## WeChatVersionNotMatchError异常
+如果出现`ntchat.exception.WeChatVersionNotMatchError`异常, 请确认是否安装github上指定的微信版本，如果确认已经安装，还是报错，可以在代码中添加以下代码，跳过微信版本检测
+```python
+import ntchat
+ntchat.set_wechat_exe_path(wechat_version='3.6.0.18') 
+```
+
+
 ## 如何多开
 
 新建多个ntchat.WeChat实例，然后调用open方法：
