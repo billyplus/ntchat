@@ -73,6 +73,12 @@ class WeChat:
         self.status = False
         self.__msg_event_emitter.emit(str(notify_type.MT_RECV_WECHAT_QUIT_MSG), self)
 
+        message = {
+            "type": notify_type.MT_RECV_WECHAT_QUIT_MSG,
+            "data": {}
+        }
+        self.__msg_event_emitter.emit(str(notify_type.MT_ALL), self, message)
+
     def bind_client_id(self, client_id):
         self.status = True
         self.client_id = client_id
