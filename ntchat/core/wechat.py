@@ -66,6 +66,7 @@ class WeChat:
             for event in msg_type:
                 self.on(event, f)
             return f
+
         return wrapper
 
     def on_close(self):
@@ -152,6 +153,16 @@ class WeChat:
     def __repr__(self):
         return f"WeChatInstance(pid: {self.pid}, client_id: {self.client_id})"
 
+    def sql_query(self, sql: str, db: int):
+        """
+        数据库查询
+        """
+        data = {
+            "sql": sql,
+            "db": db
+        }
+        return self.__send_sync(send_type.MT_SQL_QUERY_MSG, data)
+
     def get_login_info(self):
         """
         获取登录信息
@@ -171,16 +182,71 @@ class WeChat:
         return self.__send_sync(send_type.MT_GET_CONTACTS_MSG)
 
     def get_contact_detail(self, wxid):
+        """
+        获取联系人详细信息
+        """
         data = {
             "wxid": wxid
         }
         return self.__send_sync(send_type.MT_GET_CONTACT_DETAIL_MSG, data)
+
+    def search_contacts(self,
+                        wxid: Union[None, str] = None,
+                        account: Union[None, str] = None,
+                        nickname: Union[None, str] = None,
+                        remark: Union[None, str] = None):
+        """
+        根据wxid、微信号、昵称和备注模糊搜索联系人
+        """
+        conds = {}
+        if wxid:
+            conds["username"] = wxid
+        if account:
+            conds["alias"] = account
+        if nickname:
+            conds["nickname"] = nickname
+        if remark:
+            conds["remark"] = remark
+        if not conds:
+            return []
+
+        cond_pairs = []
+        for k, v in conds.items():
+            cond_pairs.append(f"{k} like '%{v}%'")
+
+        cond_str = " or ".join(cond_pairs)
+        sql = f"select username from contact where {cond_str}"
+        message = self.sql_query(sql, 1)
+        print(message)
+        if not message:
+            return []
+
+        result = message["result"]
+        if not result:
+            return []
+
+        contacts = []
+        for wxid_list in result:
+            if len(wxid_list) > 0:
+                wxid = wxid_list[0]
+                contact = self.get_contact_detail(wxid)
+                contacts.append(contact)
+        return contacts
 
     def get_rooms(self):
         """
         获取群列表
         """
         return self.__send_sync(send_type.MT_GET_ROOMS_MSG)
+
+    def get_room_detail(self, room_wxid):
+        """
+        获取指定群详细信息
+        """
+        data = {
+            "room_wxid": room_wxid
+        }
+        return self.__send_sync(send_type.MT_GET_ROOM_DETAIL_MSG, data)
 
     def get_room_members(self, room_wxid: str):
         """
@@ -275,6 +341,17 @@ class WeChat:
             'file': file
         }
         return self.__send(send_type.MT_SEND_GIF_MSG, data)
+
+    def send_xml(self, to_wxid, xml, app_type=5):
+        """
+        发送xml消息
+        """
+        data = {
+            "to_wxid": to_wxid,
+            "xml": xml,
+            "app_type": app_type
+        }
+        return self.__send(send_type.MT_SEND_XML_MSG, data)
 
     def accept_friend_request(self, encryptusername: str, ticket: str, scene: int):
         """
