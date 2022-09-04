@@ -56,4 +56,4 @@ class ClientManager(metaclass=Singleton):
         requests.post(self.callback_url, json=client_message)
 
     def __on_quit_callback(self, wechat):
-        self.__on_callback(wechat, {})
+        self.__on_callback(wechat, {"type": ntchat.MT_RECV_WECHAT_QUIT_MSG, "data": {}})
