@@ -87,7 +87,7 @@ async def get_contacts(model: models.ClientReqModel):
 
 
 @app.post("/contact/get_contact_detail", summary="获取指定联系人详细信息", tags=["Contact"],
-          response_model=models.ContactDetailModel)
+          response_model=models.ResponseModel)
 @catch_exception()
 async def get_contact_detail(model: models.ContactDetailReqModel):
     data = client_mgr.get_client(model.guid).get_contact_detail(model.wxid)
