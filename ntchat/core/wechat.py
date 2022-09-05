@@ -181,6 +181,12 @@ class WeChat:
         """
         return self.__send_sync(send_type.MT_GET_CONTACTS_MSG)
 
+    def get_publics(self):
+        """
+        获取关注公众号列表
+        """
+        return self.__send_sync(send_type.MT_GET_PUBLICS_MSG)
+
     def get_contact_detail(self, wxid):
         """
         获取联系人详细信息
