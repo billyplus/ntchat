@@ -4,6 +4,24 @@
 import ntchat
 ntchat.set_wechat_exe_path(wechat_version='3.6.0.18') 
 ```
+如果还是无法正常使用，但确认已经安装过了3.6.0.18版本可以如下设置
+```python
+import ntchat
+
+# wechat_exe_path设置成自己3.6.0.18版本的微信的安装路径
+ntchat.set_wechat_exe_path(
+    wechat_exe_path=r"C:\Program Files (x86)\Tencent\WeChat\WeChat.exe", 
+    wechat_version="3.6.0.18")
+```
+
+也可以使用注册表修复这个问题，将下面内容保存成WeChatFix.reg, 并双击运行, 如果安装时有修改安装路径，需要修改下面的InstallPath为自己设定的安装路径
+```editorconfig
+Windows Registry Editor Version 5.00
+
+[HKEY_CURRENT_USER\SOFTWARE\Tencent\WeChat]
+"Version"=dword:63060012
+"InstallPath"="C:\Program Files (x86)\Tencent\WeChat"
+```
 
 
 ## 如何多开
