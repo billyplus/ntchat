@@ -200,7 +200,8 @@ class WeChat:
                         wxid: Union[None, str] = None,
                         account: Union[None, str] = None,
                         nickname: Union[None, str] = None,
-                        remark: Union[None, str] = None):
+                        remark: Union[None, str] = None,
+                        fuzzy_search: bool = False):
         """
         根据wxid、微信号、昵称和备注模糊搜索联系人
         """
@@ -217,8 +218,9 @@ class WeChat:
             return []
 
         cond_pairs = []
+        tag = '%' if fuzzy_search else ''
         for k, v in conds.items():
-            cond_pairs.append(f"{k} like '%{v}%'")
+            cond_pairs.append(f"{k} like '{tag}{v}{tag}'")
 
         cond_str = " or ".join(cond_pairs)
         sql = f"select username from contact where {cond_str}"
