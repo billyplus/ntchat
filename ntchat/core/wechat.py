@@ -201,7 +201,7 @@ class WeChat:
                         account: Union[None, str] = None,
                         nickname: Union[None, str] = None,
                         remark: Union[None, str] = None,
-                        fuzzy_search: bool = False):
+                        fuzzy_search: bool = True):
         """
         根据wxid、微信号、昵称和备注模糊搜索联系人
         """
@@ -225,7 +225,6 @@ class WeChat:
         cond_str = " or ".join(cond_pairs)
         sql = f"select username from contact where {cond_str}"
         message = self.sql_query(sql, 1)
-        print(message)
         if not message:
             return []
 
