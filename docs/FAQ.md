@@ -90,3 +90,8 @@ pyinstaller -F --collect-data=ntchat main.py
 ```bash
 pyinstaller -y --collect-data=ntchat main.py
 ```
+
+打包fastapi_example示例，需要添加`--paths=. --collect-data=ntchat`
+```bash
+pyinstaller -F --paths=. --collect-data=ntchat main.py
+```
