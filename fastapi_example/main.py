@@ -82,7 +82,6 @@ async def user_get_profile(model: models.ClientReqModel):
 @catch_exception()
 async def get_contacts(model: models.ClientReqModel):
     data = client_mgr.get_client(model.guid).get_contacts()
-    print(data)
     return response_json(1, data)
 
 
