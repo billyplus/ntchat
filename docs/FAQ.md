@@ -1,4 +1,4 @@
-## WeChatVersionNotMatchError异常
+## 1. WeChatVersionNotMatchError异常
 如果出现`ntchat.exception.WeChatVersionNotMatchError`异常, 请确认是否安装github上指定的微信版本，如果确认已经安装，还是报错，可以在代码中添加以下代码，跳过微信版本检测
 ```python
 import ntchat
@@ -23,8 +23,13 @@ Windows Registry Editor Version 5.00
 "InstallPath"="C:\Program Files (x86)\Tencent\WeChat"
 ```
 
+## 2. `ImportError: cannot import name 'wcprobe' from ''ntwork.wc'`
 
-## 如何多开
+出现在这个错误的原因是因为你在github下载的源码目录中运行程序，因为wcprobe是根据python版本自动编译生成的，所以源码目录中没有这个文件.
+
+你需要将要`运行的例子文件移动到非源码目录下`，再去运行或打包
+
+## 3. 如何多开
 
 新建多个ntchat.WeChat实例，然后调用open方法：
 ```python
@@ -37,7 +42,7 @@ for i in range(3):
 ```
 更完善的多实例管理查看[fastapi_example例子](./fastapi_example)
 
-## 如何监听输出所有的消息
+## 4. 如何监听输出所有的消息
 ```python
 # 注册监听所有消息回调
 @wechat.msg_register(ntchat.MT_ALL)
@@ -47,7 +52,7 @@ def on_recv_text_msg(wechat_instance: ntchat.WeChat, message):
 ```
 完全例子查看[examples/msg_register_all.py](../examples/msg_register_all.py)
 
-## 如何关闭NtChat的日志
+## 5. 如何关闭NtChat的日志
 
 `os.environ['NTCHAT_LOG'] = "ERROR"` 要在`import ntchat`前执行
 ```python
@@ -60,7 +65,7 @@ os.environ['NTCHAT_LOG'] = "ERROR"
 import ntchat
 ```
 
-## 如何正常的关闭Cmd窗口
+## 6. 如何正常的关闭Cmd窗口
 
 先使用`pip install pywin32` 安装pywin32模块, 然后在代码中添加以下代码， 完整例子查看[examples/cmd_close_event.py](../examples/cmd_close_event.py)
 ```python
@@ -78,7 +83,7 @@ win32api.SetConsoleCtrlHandler(on_exit, True)
 ```
 
 
-## pyinstaller打包exe
+## 7. pyinstaller打包exe
 使用pyinstaller打包NtChat项目，需要添加`--collect-data=ntchat`选项
 
 打包成单个exe程序
