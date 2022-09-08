@@ -23,7 +23,7 @@ Windows Registry Editor Version 5.00
 "InstallPath"="C:\Program Files (x86)\Tencent\WeChat"
 ```
 
-## 2. `ImportError: cannot import name 'wcprobe' from ''ntwork.wc'`
+## 2. `ImportError: cannot import name 'wcprobe' from ''ntchat.wc'`
 
 出现在这个错误的原因是因为你在github下载的源码目录中运行程序，因为wcprobe是根据python版本自动编译生成的，所以源码目录中没有这个文件.
 
