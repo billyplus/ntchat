@@ -360,6 +360,16 @@ class WeChat:
         }
         return self.__send(send_type.MT_SEND_XML_MSG, data)
 
+    def send_pat(self, room_wxid: str, patted_wxid: str):
+        """
+        发送拍一拍
+        """
+        data = {
+            "room_wxid": room_wxid,
+            "patted_wxid": patted_wxid
+        }
+        return self.__send_sync(send_type.MT_SEND_PAT_MSG, data)
+
     def accept_friend_request(self, encryptusername: str, ticket: str, scene: int):
         """
         同意加好友请求

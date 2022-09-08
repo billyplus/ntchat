@@ -16,4 +16,9 @@ def set_wechat_exe_path(wechat_exe_path=None, wechat_version=None):
     conf.DEFAULT_WECHAT_VERSION = wechat_version
 
 
-exit_ = wcprobe.exit
+def get_install_wechat_version():
+    return wcprobe.get_install_wechat_version()
+
+
+def exit_():
+    wcprobe.exit()
