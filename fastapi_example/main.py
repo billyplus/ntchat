@@ -3,7 +3,6 @@ import uvicorn
 from functools import wraps
 from fastapi import FastAPI
 from mgr import ClientManager
-from typing import List
 from down import get_local_path
 from exception import MediaNotExistsError, ClientNotExists
 import models
@@ -243,5 +242,20 @@ async def send_gif(model: models.SendMediaReqModel):
     return response_json(1 if ret else 0)
 
 
+@app.post("/msg/send_xml", summary="发送XML原始消息", tags=["Msg"], response_model=models.ResponseModel)
+@catch_exception()
+async def send_gif(model: models.SendXmlReqModel):
+    ret = client_mgr.get_client(model.guid).send_xml(model.to_wxid, model.xml)
+    return response_json(1 if ret else 0)
+
+
+@app.post("/msg/send_pat", summary="发送拍一拍", tags=["Msg"], response_model=models.ResponseModel)
+@catch_exception()
+async def send_gif(model: models.SendPatReqModel):
+    data = client_mgr.get_client(model.guid).send_pat(model.room_wxid, model.patted_wxid)
+    return response_json(1, data)
+
+
+
 if __name__ == '__main__':
-    uvicorn.run(app=app)
+    uvicorn.run(app=app, host='0.0.0.0', port=8000)
