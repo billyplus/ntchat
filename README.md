@@ -14,7 +14,7 @@
 - 支持好友和群管理
   
 ## 支持的微信版本下载
-- 官方下载 [WeChatSetup3.6.0.18.exe](https://webcdn.m.qq.com/spcmgr/download/WeChat3.6.0.18.exe)
+- 下载 [WeChatSetup3.6.0.18.exe](https://github.com/tom-snow/wechat-windows-versions/releases/download/v3.6.0.18/WeChatSetup-3.6.0.18.exe)
 
 ## 帮助文档
 - 查看 [常见问题](docs/FAQ.md)

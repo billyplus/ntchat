@@ -256,6 +256,5 @@ async def send_gif(model: models.SendPatReqModel):
     return response_json(1, data)
 
 
-
 if __name__ == '__main__':
     uvicorn.run(app=app, host='0.0.0.0', port=8000)
