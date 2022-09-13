@@ -1,8 +1,15 @@
 import os.path
-import time
 import requests
 from xdg import get_download_dir
 from models import SendMediaReqModel
+from ntchat.utils import generate_guid
+
+
+def new_download_file():
+    while True:
+        path = os.path.join(get_download_dir(), generate_guid("temp"))
+        if not os.path.isfile(path):
+            return path
 
 
 def get_local_path(model: SendMediaReqModel):
@@ -11,7 +18,7 @@ def get_local_path(model: SendMediaReqModel):
     if not model.url:
         return None
     data = requests.get(model.url).content
-    temp_file = os.path.join(get_download_dir(), str(time.time_ns()))
+    temp_file = new_download_file()
     with open(temp_file, 'wb') as fp:
         fp.write(data)
     return temp_file
