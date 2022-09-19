@@ -41,6 +41,17 @@ class ReqData:
         return self.__response_message["data"]
 
 
+class RaiseExceptionFunc:
+    def __init__(self, func):
+        self.func = func
+
+    def __call__(self, *args, **kwargs):
+        try:
+            self.func(*args, **kwargs)
+        except Exception as e:
+            log.error('callback error, in function `%s`, error: %s', self.func.__name__, e)
+
+
 class WeChat:
     client_id: int = 0
     pid: int = 0
@@ -55,7 +66,7 @@ class WeChat:
         self.__login_info = {}
 
     def on(self, msg_type, f):
-        return self.__msg_event_emitter.on(str(msg_type), f)
+        return self.__msg_event_emitter.on(str(msg_type), RaiseExceptionFunc(f))
 
     def msg_register(self, msg_type: Union[int, List[int], Tuple[int]]):
         if not (isinstance(msg_type, list) or isinstance(msg_type, tuple)):
@@ -64,7 +75,7 @@ class WeChat:
         def wrapper(f):
             wraps(f)
             for event in msg_type:
-                self.on(event, f)
+                self.on(event, RaiseExceptionFunc(f))
             return f
 
         return wrapper
@@ -457,3 +468,13 @@ class WeChat:
             "room_wxid": room_wxid
         }
         return self.__send(send_type.MT_QUIT_DEL_ROOM_MSG, data)
+
+    def modify_friend_remark(self, wxid: str, remark: str):
+        """
+        修改好友备注
+        """
+        data = {
+            "wxid": wxid,
+            "remark": remark
+        }
+        return self.__send_sync(send_type.MT_MODIFY_FRIEND_REMARK, data)
