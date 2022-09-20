@@ -92,6 +92,13 @@ async def get_contact_detail(model: models.ContactDetailReqModel):
     return response_json(1, data)
 
 
+@app.post("/contact/modify_remark", summary="修改联系人备注", tags=["Contact"], response_model=models.ResponseModel)
+@catch_exception()
+async def send_gif(model: models.ModifyFriendRemarkReqModel):
+    data = client_mgr.get_client(model.guid).modify_friend_remark(model.wxid, model.remark)
+    return response_json(1, data)
+
+
 @app.post("/room/get_rooms", summary="获取群列表", tags=["Room"],
           response_model=models.ResponseModel)
 @catch_exception()
@@ -254,6 +261,8 @@ async def send_gif(model: models.SendXmlReqModel):
 async def send_gif(model: models.SendPatReqModel):
     data = client_mgr.get_client(model.guid).send_pat(model.room_wxid, model.patted_wxid)
     return response_json(1, data)
+
+
 
 
 if __name__ == '__main__':

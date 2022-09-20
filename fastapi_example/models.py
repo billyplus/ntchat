@@ -145,3 +145,9 @@ class SendPatReqModel(ClientReqModel):
     room_wxid: str
     patted_wxid: str
 
+
+class ModifyFriendRemarkReqModel(ClientReqModel):
+    wxid: str
+    remark: str
+
+
