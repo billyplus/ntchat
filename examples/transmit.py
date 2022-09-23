@@ -5,7 +5,6 @@ import sys
 import os.path
 import time
 import ntchat
-import xml.etree.ElementTree as ET
 import re
 
 wechat = ntchat.WeChat()
