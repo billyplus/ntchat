@@ -7,6 +7,9 @@ import time
 import ntchat
 import re
 
+# 聊天记录通知
+MT_RECV_CHAT_RECORDS_MSG = 11061
+
 wechat = ntchat.WeChat()
 
 # 要监听的wxids，可以通过获取contact接口获取wxid，也可以开启后从debug信息中看出来
@@ -81,7 +84,7 @@ def update_wxid_in_xml(xml, from_wxid, target_wxid):
     return patten.sub(target_wxid, xml)
 
 
-@wechat.msg_register(ntchat.MT_RECV_CHAT_RECORDS_MSG)
+@wechat.msg_register(MT_RECV_CHAT_RECORDS_MSG)
 def on_recv_chat_record_msg(wechat_instance: ntchat.WeChat, message):
     data = message["data"]
     from_wxid = data["from_wxid"]
