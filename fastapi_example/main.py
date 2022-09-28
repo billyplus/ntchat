@@ -1,5 +1,6 @@
 # -*- coding: utf-8 -*-
 import uvicorn
+import threading
 from functools import wraps
 from fastapi import FastAPI
 from mgr import ClientManager
@@ -56,8 +57,14 @@ async def client_create():
           response_model=models.ResponseModel)
 @catch_exception()
 async def client_open(model: models.ClientOpenReqModel):
-    ret = client_mgr.get_client(model.guid).open(model.smart, model.show_login_qrcode)
-    return response_json(1 if ret else 0)
+    client = client_mgr.get_client(model.guid)
+    ret = client.open(model.smart, model.show_login_qrcode)
+
+    # 当show_login_qrcode=True时, 打开微信时会显示二维码界面
+    if model.show_login_qrcode:
+        client.qrcode_event = threading.Event()
+        client.qrcode_event.wait(timeout=10)
+    return response_json(1 if ret else 0, {'qrcode': client.qrcode})
 
 
 @app.post("/global/set_callback_url", summary="设置接收通知地址", tags=["Global"],

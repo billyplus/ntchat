@@ -1,5 +1,6 @@
 # -*- coding: utf-8 -*-
 import ntchat
+import threading
 import requests
 from typing import Dict, Union
 from ntchat.utils.singleton import Singleton
@@ -9,6 +10,8 @@ from exception import ClientNotExists
 
 class ClientWeChat(ntchat.WeChat):
     guid: str = ""
+    qrcode_event: threading.Event = None
+    qrcode: str = ""
 
 
 class ClientManager(metaclass=Singleton):
@@ -35,7 +38,7 @@ class ClientManager(metaclass=Singleton):
         wechat.on(ntchat.MT_RECV_WECHAT_QUIT_MSG, self.__on_quit_callback)
         return guid
 
-    def get_client(self, guid: str) -> Union[None, ntchat.WeChat]:
+    def get_client(self, guid: str) -> ClientWeChat:
         client = self.__client_map.get(guid, None)
         if client is None:
             raise ClientNotExists(guid)
@@ -45,7 +48,14 @@ class ClientManager(metaclass=Singleton):
         if guid in self.__client_map:
             del self.__client_map[guid]
 
-    def __on_callback(self, wechat, message):
+    def __on_callback(self, wechat: ClientWeChat, message: dict):
+
+        # 通知二维码显示
+        msg_type = message['type']
+        if msg_type == ntchat.MT_RECV_LOGIN_QRCODE_MSG and wechat.qrcode_event:
+            wechat.qrcode = message["data"]["code"]
+            wechat.qrcode_event.set()
+
         if not self.callback_url:
             return
 
