@@ -56,7 +56,7 @@ async def client_create():
           response_model=models.ResponseModel)
 @catch_exception()
 async def client_open(model: models.ClientOpenReqModel):
-    ret = client_mgr.get_client(model.guid).open(model.smart)
+    ret = client_mgr.get_client(model.guid).open(model.smart, model.show_login_qrcode)
     return response_json(1 if ret else 0)
 
 

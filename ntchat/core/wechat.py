@@ -120,7 +120,10 @@ class WeChat:
         log.info("wait login...")
         self.__wait_login_event.wait(timeout)
 
-    def open(self, smart=False):
+    def open(self, smart=False, show_login_qrcode=False):
+        if show_login_qrcode:
+            wcprobe.show_login_qrcode()
+
         self.pid = wcprobe.open(smart)
         log.info("open wechat pid: %d", self.pid)
         return self.pid != 0
