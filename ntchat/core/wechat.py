@@ -62,34 +62,32 @@ class WeChat:
         WeChatMgr().append_instance(self)
         self.__wait_login_event = Event()
         self.__req_data_cache = {}
-        self.__msg_event_emitter = pyee.EventEmitter()
+        self.event_emitter = pyee.EventEmitter()
         self.__login_info = {}
 
     def on(self, msg_type, f):
-        return self.__msg_event_emitter.on(str(msg_type), RaiseExceptionFunc(f))
-
-    def msg_register(self, msg_type: Union[int, List[int], Tuple[int]]):
         if not (isinstance(msg_type, list) or isinstance(msg_type, tuple)):
             msg_type = [msg_type]
+        for event in msg_type:
+            self.event_emitter.on(str(event), RaiseExceptionFunc(f))
 
+    def msg_register(self, msg_type: Union[int, List[int], Tuple[int]]):
         def wrapper(f):
             wraps(f)
-            for event in msg_type:
-                self.on(event, RaiseExceptionFunc(f))
+            self.on(msg_type, f)
             return f
-
         return wrapper
 
     def on_close(self):
         self.login_status = False
         self.status = False
-        self.__msg_event_emitter.emit(str(notify_type.MT_RECV_WECHAT_QUIT_MSG), self)
+        self.event_emitter.emit(str(notify_type.MT_RECV_WECHAT_QUIT_MSG), self)
 
         message = {
             "type": notify_type.MT_RECV_WECHAT_QUIT_MSG,
             "data": {}
         }
-        self.__msg_event_emitter.emit(str(notify_type.MT_ALL), self, message)
+        self.event_emitter.emit(str(notify_type.MT_ALL), self, message)
 
     def bind_client_id(self, client_id):
         self.status = True
@@ -113,8 +111,8 @@ class WeChat:
             req_data.on_response(message)
             del self.__req_data_cache[extend]
         else:
-            self.__msg_event_emitter.emit(str(msg_type), self, message)
-            self.__msg_event_emitter.emit(str(notify_type.MT_ALL), self, message)
+            self.event_emitter.emit(str(msg_type), self, message)
+            self.event_emitter.emit(str(notify_type.MT_ALL), self, message)
 
     def wait_login(self, timeout=None):
         log.info("wait login...")
