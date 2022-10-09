@@ -114,6 +114,17 @@ async def get_rooms(model: models.ClientReqModel):
     return response_json(1, data)
 
 
+@app.post("/room/get_name_name", summary="获取群名称", tags=["Room"],
+          response_model=models.ResponseModel)
+@catch_exception()
+async def get_rooms(model: models.GetRoomNameReqModel):
+    name = client_mgr.get_client(model.guid).get_room_name(model.room_wxid)
+    data = {
+        "name": name
+    }
+    return response_json(1, data)
+
+
 @app.post("/room/get_room_members", summary="获取群成员列表", tags=["Room"],
           response_model=models.ResponseModel)
 @catch_exception()

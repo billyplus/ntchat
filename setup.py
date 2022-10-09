@@ -194,7 +194,7 @@ extension.extra_compile_cpp_args = extra_compile_cpp_args[target_os]
 
 setup(
     name='ntchat',
-    version='0.1.15',
+    version='0.1.16',
     description='About Conversational RPA SDK for Chatbot Makers',
     long_description="",
     long_description_content_type='text/markdown',

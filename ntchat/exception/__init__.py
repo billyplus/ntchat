@@ -8,3 +8,7 @@ class WeChatBindError(Exception):
 
 class WeChatNotLoginError(Exception):
     pass
+
+
+class WeChatRuntimeError(Exception):
+    pass

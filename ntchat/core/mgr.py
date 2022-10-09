@@ -1,8 +1,8 @@
 import json
 import os.path
-from ntchat.wc import wcprobe
-from ntchat.utils.xdg import get_helper_file
-from ntchat.exception import WeChatVersionNotMatchError, WeChatBindError
+from ntchat.wc import wcprobe, SUPPORT_VERSIONS
+from ntchat.utils.xdg import get_helper_file, is_support_version, has_helper_file
+from ntchat.exception import WeChatVersionNotMatchError, WeChatBindError, WeChatRuntimeError
 from ntchat.utils.singleton import Singleton
 from ntchat.const import notify_type
 from ntchat.utils.logger import get_logger
@@ -31,9 +31,16 @@ class WeChatMgr(metaclass=Singleton):
         else:
             version = wechat_version
 
+        if not is_support_version(version):
+            raise WeChatVersionNotMatchError(f"ntchat support wechat versions: {','.join(SUPPORT_VERSIONS)}")
+
+        if not has_helper_file():
+            raise WeChatRuntimeError('When using pyinstaller to package exe, you need to add the '
+                                     '`--collect-data=ntchat` parameter')
+
         helper_file = get_helper_file(version)
         if not os.path.exists(helper_file):
-            raise WeChatVersionNotMatchError()
+            raise WeChatRuntimeError("missing core files")
 
         log.info("initialize wechat, version: %s", version)
 

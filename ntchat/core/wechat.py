@@ -479,3 +479,13 @@ class WeChat:
             "remark": remark
         }
         return self.__send_sync(send_type.MT_MODIFY_FRIEND_REMARK, data)
+
+    def get_room_name(self, room_wxid: str) -> str:
+        """
+        获取群名
+        """
+        sql = f"select nickname from contact where username='{room_wxid}'"
+        result = self.sql_query(sql, 1)["result"]
+        if result:
+            return result[0][0]
+        return ''

@@ -87,6 +87,10 @@ class GetRoomMembersReqModel(ClientReqModel):
     room_wxid: str
 
 
+class GetRoomNameReqModel(ClientReqModel):
+    room_wxid: str
+
+
 class CreateRoomReqModel(ClientReqModel):
     member_list: List[str]
 

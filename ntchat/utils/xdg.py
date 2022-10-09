@@ -1,6 +1,7 @@
 import os
 import sys
 import os.path
+from ntchat.wc import SUPPORT_VERSIONS
 
 
 def get_exec_dir():
@@ -26,9 +27,13 @@ def get_helper_file(version):
     return os.path.join(get_wc_dir(), f"helper_{version}.dat")
 
 
-def get_support_download_url():
-    return 'https://webcdn.m.qq.com/spcmgr/download/WeChat3.6.0.18.exe'
+def has_helper_file():
+    for name in os.listdir(get_wc_dir()):
+        if name.startswith("helper_"):
+            return True
+    return False
 
 
-if __name__ == '__main__':
-    print(get_helper_file('3.6.0.18'))
+def is_support_version(version):
+    return version in SUPPORT_VERSIONS
+
