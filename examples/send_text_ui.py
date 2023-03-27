@@ -1,6 +1,6 @@
 import xcgui
 import ntchat
-from xcgui import XApp, XWindow
+from xcgui import XApp, XWindow, RunUiThread
 
 
 class NtChatWindow(XWindow):
@@ -24,7 +24,9 @@ class NtChatWindow(XWindow):
 
     def on_btn_open_clicked(self, sender, _):
         self.wechat_instance = ntchat.WeChat()
-        self.wechat_instance.open()
+        self.wechat_instance.open(smart=True)
+
+        # 监听所有通知消息
         self.wechat_instance.on(ntchat.MT_ALL, self.on_recv_message)
 
     def on_btn_send_clicked(self, sender, _):
@@ -36,6 +38,7 @@ class NtChatWindow(XWindow):
         else:
             self.wechat_instance.send_text(self.edit_wxid.getText(), self.edit_content.getText())
 
+    @RunUiThread()
     def on_recv_message(self, wechat, message):
         text = self.edit_log.getText()
         text += "\n"

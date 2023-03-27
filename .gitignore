@@ -24,5 +24,8 @@ main.spec
 build/
 config.ini
 ntchat/wc/*.pyd
+ntchat/wc/*.dat
 wheelhouse/
 setup_conf.py
+upload.bat
+download/

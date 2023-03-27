@@ -1,0 +1,4 @@
+ntchat
+fastapi
+requests
+uvicorn

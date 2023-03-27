@@ -1,0 +1,3 @@
+SUPPORT_VERSIONS = [
+    '3.6.0.18'
+]

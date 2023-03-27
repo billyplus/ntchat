@@ -1,6 +1,6 @@
 <h1 align="center">NtChat</h1>
 <p align="center">
-    <a href="https://github.com/smallevilbeast/ntchat/releases"><img src="https://img.shields.io/badge/release-0.1.1-blue.svg?" alt="release"></a>
+    <a href="https://github.com/smallevilbeast/ntchat/releases"><img src="https://img.shields.io/badge/release-0.1.16-blue.svg?" alt="release"></a>
     <a href="https://opensource.org/licenses/MIT"><img src="https://img.shields.io/badge/License-MIT-brightgreen.svg?" alt="License"></a>
 </p>
 
@@ -14,7 +14,14 @@
 - 支持好友和群管理
   
 ## 支持的微信版本下载
-- [WeChatSetup3.6.0.18.exe](https://webcdn.m.qq.com/spcmgr/download/WeChat3.6.0.18.exe)
+- 下载 [WeChatSetup3.6.0.18.exe](https://github.com/tom-snow/wechat-windows-versions/releases/download/v3.6.0.18/WeChatSetup-3.6.0.18.exe)
+
+## 帮助文档
+- 查看 [常见问题](docs/FAQ.md)
+- 查看 [常用示例](examples)
+- 查看 [NtChatHttp接口示例](fastapi_example)  
+- 加入群聊 [PyXCGUI&NtChat交流群](https://jq.qq.com/?_wv=1027&k=oIXzbTbI)
+- 查看 [PyXCGUI项目](https://github.com/smallevilbeast/pyxcgui) 
 
 ## 安装
 
@@ -38,7 +45,7 @@ import ntchat
 wechat = ntchat.WeChat()
 
 # 打开pc微信, smart: 是否管理已经登录的微信
-wechat.open(smart=False)
+wechat.open(smart=True)
 
 # 等待登录
 wechat.wait_login()
@@ -63,7 +70,7 @@ import ntchat
 wechat = ntchat.WeChat()
 
 # 打开pc微信, smart: 是否管理已经登录的微信
-wechat.open(smart=False)
+wechat.open(smart=True)
 
 # 等待登录
 wechat.wait_login()
@@ -97,7 +104,7 @@ import ntchat
 wechat = ntchat.WeChat()
 
 # 打开pc微信, smart: 是否管理已经登录的微信
-wechat.open(smart=False)
+wechat.open(smart=True)
 
 
 # 注册消息回调
@@ -120,6 +127,14 @@ except KeyboardInterrupt:
     sys.exit()
 ```
 
+## 使用fastapi框架实现的web api接口
+
+通过fastapi的swagger在线文档可以很方便的管理NtChat接口
+
+[查看fastapi_example例子](./fastapi_example)
+
+![vfazT0.jpg](https://s1.ax1x.com/2022/08/29/vfazT0.jpg)
+
 
 ## 使用pyxcgui界面库实现的简单例子
 
@@ -131,7 +146,7 @@ except KeyboardInterrupt:
 # -*- coding: utf8 -*-
 import xcgui
 import ntchat
-from xcgui import XApp, XWindow
+from xcgui import XApp, XWindow, RunUiThread
 
 
 class NtChatWindow(XWindow):
@@ -155,7 +170,9 @@ class NtChatWindow(XWindow):
 
     def on_btn_open_clicked(self, sender, _):
         self.wechat_instance = ntchat.WeChat()
-        self.wechat_instance.open()
+        self.wechat_instance.open(smart=True)
+
+        # 监听所有通知消息
         self.wechat_instance.on(ntchat.MT_ALL, self.on_recv_message)
 
     def on_btn_send_clicked(self, sender, _):
@@ -167,6 +184,7 @@ class NtChatWindow(XWindow):
         else:
             self.wechat_instance.send_text(self.edit_wxid.getText(), self.edit_content.getText())
 
+    @RunUiThread()
     def on_recv_message(self, wechat, message):
         text = self.edit_log.getText()
         text += "\n"

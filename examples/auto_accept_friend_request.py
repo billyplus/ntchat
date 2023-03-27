@@ -1,12 +1,13 @@
 # -*- coding: utf-8 -*-
 import sys
+import time
 import ntchat
 import xml.dom.minidom
 
 wechat = ntchat.WeChat()
 
 # 打开pc微信, smart: 是否管理已经登录的微信
-wechat.open(smart=False)
+wechat.open(smart=True)
 
 
 # 注册消息回调
@@ -21,12 +22,18 @@ def on_recv_text_msg(wechat_instance: ntchat.WeChat, message):
     scene = dom.documentElement.getAttribute("scene")
 
     # 自动同意好友申请
-    wechat_instance.accept_friend_request(encryptusername, ticket, int(scene))
+    ret = wechat_instance.accept_friend_request(encryptusername, ticket, int(scene))
+
+    if ret:
+        # 通过后向他发条消息
+        wechat_instance.send_text(to_wxid=ret["userName"], content="你好!!!!!")
 
 
+# 以下是为了让程序不结束，如果有用于PyQt等有主循环消息的框架，可以去除下面代码
 try:
     while True:
-        pass
+        time.sleep(0.5)
 except KeyboardInterrupt:
     ntchat.exit_()
     sys.exit()
+
